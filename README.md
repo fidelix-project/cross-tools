@@ -34,7 +34,7 @@ Assuming Make runs to completion successfully, you will be left with your cross 
 The following combinations of GCC/Binutils are known to work. There are
 certainly more combinations that do work, these are just what have been tested.
 If you do find another combination that works, it would be much appreciated if
-you submit a pull request adding it to thie table.
+you submit a pull request adding it to this table.
 
 | GCC Version | Binutils Version |
 | ----------- | ---------------- |
