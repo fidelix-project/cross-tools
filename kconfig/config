@@ -1,0 +1,6 @@
+#
+# Automatically generated file; DO NOT EDIT.
+# Kernel Configuration
+#
+GCC_VERSION="9.3.0"
+BINUTILS_VERSION="2.34"

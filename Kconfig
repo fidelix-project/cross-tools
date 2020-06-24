@@ -1,0 +1,139 @@
+mainmenu "Fidelix Cross Tools"
+
+menu "Toolchain Configuration"
+
+	config TARGET_MACHINE
+		string "Target machine"
+		default "x86_64"
+		help
+		  The target machine architecture for the cross toolchain. The
+		  following architectures have been tested and are known to
+		  work:
+
+		  * x86_64
+
+		  There are likely many more architectures that will work
+		  without modification. For a list of architectures supported
+		  by GCC, see https://gcc.gnu.org/backends.html.
+
+	choice
+		prompt "Target system type"
+
+		help
+		  The target system type for the cross toolchain.
+
+		config TARGET_LINUX_MUSL
+			bool "linux-musl"
+			help
+			  Build a toolchain targeting an existing Linux system
+			  using musl. Requires the presence of an existing
+			  system root, specified by SYSROOT.
+		config TARGET_LINUX_GNU
+			bool "linux-gnu"
+			help
+			  Build a toolchain targeting an existing Linux system
+			  using glibc. Requires the presence of an existing
+			  system root, specified by SYSROOT.
+		config TARGET_ELF
+			bool "elf"
+			help
+			  Build a toolchain that does not target any operating
+			  system. The resulting toolchain will produce raw ELF
+			  files by default. Does not require (or support) an
+			  existing system root.
+	endchoice
+
+	config TARGET_VENDOR
+		string "Vendor for the target triplet"
+		help
+		  The vendor field to put in the target triplet. This is not
+		  required, but can be used to uniquely identify your
+		  toolchain.
+
+	menu "Enabled languages in toolchain"
+		config GCC_LANG_C
+			bool "C"
+			default y
+		config GCC_LANG_CXX
+			bool "C++"
+			default y
+		config GCC_LANG_OBJC
+			bool "Objective C"
+			default n
+		config GCC_LANG_FORTRAN
+			bool "Fortran"
+			default n
+		config GCC_LANG_ADA
+			bool "Ada"
+			default n
+		config GCC_LANG_D
+			bool "D"
+			default n
+		config GCC_LANG_GO
+			bool "Go"
+			default n
+
+	endmenu
+
+	config GCC_VERSION
+		string "Version of GCC to build"
+		default "9.3.0"
+		help
+		  The version of GCC to build for the cross tools. Note
+		  that only some GCC_VERSION/BINUTILS_VERSION combinations
+		  work. For a list of known working combinations, see the
+		  support toolchains section of README.md.
+
+	config BINUTILS_VERSION
+		string "Version of binutils to build"
+		default "2.34"
+		help
+		  The version of binutils to build for the cross tools. Note
+		  that only some GCC_VERSION/BINUTILS_VERSION combinations
+		  work. For a list of known working combinations, see the
+		  support toolchains section of README.md.
+
+endmenu
+
+config DESTDIR
+	string "Destination directory for cross tools"
+	default "./tools"
+	help
+	  The directory to install the cross tools tree at. The tools
+	  will be located in DESTDIR/bin.
+
+if !TARGET_ELF
+config SYSROOT
+	string "Root directory for target system"
+	default "./root"
+	# TODO
+	help
+	  The directory to serve as the root of the target system's
+	  filesystem. To create a clean set of cross tools with no
+	  target system, set this to an empty directory. This directory
+	  will be created if it does not exist.
+endif
+
+config DOWNLOAD_TARGET_SYSTEM
+	bool "Download a target system"
+	default n
+	help
+	  If set, cross-tools will download a base system root tarball and
+	  extract it to SYSROOT before building the cross tools.
+
+if DOWNLOAD_TARGET_SYSTEM
+choice
+	prompt "The distribution to download as the target system"
+
+	help
+	  The distribution to download and extract to the root directory. If
+	  the distribution you want is not listed below, select Other and you
+	  will be able to specify the location of the root tarball manually.
+
+	config DLSYS_FIDELIX
+		bool "Fidelix"
+	config DLSYS_OTHER
+		bool "Other"
+endchoice
+endif
+

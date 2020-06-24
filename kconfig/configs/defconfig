@@ -1,0 +1,29 @@
+#
+# Automatically generated file; DO NOT EDIT.
+# Fidelix Cross Tools
+#
+
+#
+# Toolchain Configuration
+#
+TARGET_MACHINE="x86_64"
+TARGET_LINUX_MUSL=y
+# TARGET_LINUX_GNU is not set
+# TARGET_ELF is not set
+TARGET_VENDOR=""
+
+#
+# Enabled languages in toolchain
+#
+GCC_LANG_C=y
+GCC_LANG_CXX=y
+# GCC_LANG_OBJC is not set
+# GCC_LANG_FORTRAN is not set
+# GCC_LANG_ADA is not set
+# GCC_LANG_D is not set
+# GCC_LANG_GO is not set
+GCC_VERSION="9.3.0"
+BINUTILS_VERSION="2.34"
+DESTDIR="./tools"
+SYSROOT="./root"
+# DOWNLOAD_TARGET_SYSTEM is not set
