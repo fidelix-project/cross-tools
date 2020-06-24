@@ -11,6 +11,7 @@ menu "Toolchain Configuration"
 		  work:
 
 		  * x86_64
+		  * i686
 
 		  There are likely many more architectures that will work
 		  without modification. For a list of architectures supported
@@ -112,28 +113,5 @@ config SYSROOT
 	  filesystem. To create a clean set of cross tools with no
 	  target system, set this to an empty directory. This directory
 	  will be created if it does not exist.
-endif
-
-config DOWNLOAD_TARGET_SYSTEM
-	bool "Download a target system"
-	default n
-	help
-	  If set, cross-tools will download a base system root tarball and
-	  extract it to SYSROOT before building the cross tools.
-
-if DOWNLOAD_TARGET_SYSTEM
-choice
-	prompt "The distribution to download as the target system"
-
-	help
-	  The distribution to download and extract to the root directory. If
-	  the distribution you want is not listed below, select Other and you
-	  will be able to specify the location of the root tarball manually.
-
-	config DLSYS_FIDELIX
-		bool "Fidelix"
-	config DLSYS_OTHER
-		bool "Other"
-endchoice
 endif
 
