@@ -60,8 +60,18 @@ GCC_CONFIGURE_ARGS+= \
 
 # elf
 else ifdef TARGET_ELF
-	TARGET_OS=elf
-	SYSROOT=/var/empty
+TARGET_OS=elf
+SYSROOT=/var/empty
+# Most libraries for more advanced features fail to compile when building a
+# bare elf target.
+GCC_CONFIGURE_ARGS+= \
+	--without-headers \
+	--disable-libssp \
+	--disable-libquadmath \
+	--disable-libatomic \
+	--disable-libgomp \
+	--disable-libvtv \
+	--disable-libstdcxx
 endif
 
 # Set the TARGET triplet
@@ -91,7 +101,6 @@ BINUTILS_CONFIGURE_ARGS+= \
 
 GCC_CONFIGURE_ARGS+= \
 	--prefix="$(DESTDIR)" \
-	--with-sysroot="$(SYSROOT)" \
 	--target=$(TARGET) \
 	--disable-multilib \
 	--disable-werror \
@@ -160,6 +169,7 @@ oldconfig xconfig gconfig menuconfig config silentoldconfig update-po-config \
 .PHONY: clean clean-build show-var
 clean: clean-build
 	rm -f $(CONFIG)
+	$(MAKE) -C kconfig clean
 
 clean-build:
 	rm -rf $(WORKDIR)
