@@ -110,14 +110,13 @@ GCC_CONFIGURE_ARGS+= \
 	--enable-languages=$(ENABLED_LANGUAGES)
 
 .PHONY: build
-build: gcc copy-config
+build: gcc $(DESTDIR)/config
 	$(MAKE) $(WORKDIR)
 	$(MAKE) $(DESTDIR)
 	$(MAKE) download
 	$(MAKE) gcc
 
-.PHONY: copy-config
-copy-config:
+$(DESTDIR)/config: $(CONFIG)
 	cp $(CONFIG) $(DESTDIR)/config
 
 .SECONDARY: download
