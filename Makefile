@@ -13,6 +13,9 @@ ifneq ($(wildcard .config), )
 
 include .config
 
+PATH:=$(DESTDIR)/bin:$(PATH)
+export PATH
+
 ### Enabled Languages
 ifeq ($(GCC_LANG_C), y)
 ENABLED_LANGUAGES+= c
