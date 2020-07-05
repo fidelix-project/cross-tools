@@ -125,7 +125,6 @@ GCC_CONFIGURE_ARGS+= \
 build: $(DESTDIR)/config-$(TARGET)
 	$(MAKE) $(WORKDIR)
 	$(MAKE) $(DESTDIR)
-	$(MAKE) download
 	$(MAKE) gcc
 
 $(DESTDIR)/config-$(TARGET): $(CONFIG)
