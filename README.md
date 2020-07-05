@@ -49,6 +49,7 @@ installed:
 * gmp
 * mpfr
 * mpc
+* zlib
 
 For certain features to work, the following packages are required:
 * isl

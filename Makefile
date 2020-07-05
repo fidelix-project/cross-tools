@@ -100,17 +100,19 @@ BINUTILS_CONFIGURE_ARGS+= \
 	--prefix="$(DESTDIR)" \
 	--target=$(TARGET) \
 	--disable-multilib \
-	--disable-werror
+	--disable-werror \
+	--with-system-zlib
 
 GCC_CONFIGURE_ARGS+= \
 	--prefix="$(DESTDIR)" \
 	--target=$(TARGET) \
 	--disable-multilib \
 	--disable-werror \
+	--with-system-zlib \
 	--enable-languages=$(ENABLED_LANGUAGES)
 
 .PHONY: build
-build: gcc $(DESTDIR)/config
+build: $(DESTDIR)/config
 	$(MAKE) $(WORKDIR)
 	$(MAKE) $(DESTDIR)
 	$(MAKE) download
