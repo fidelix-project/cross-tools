@@ -16,6 +16,16 @@ include .config
 PATH:=$(DESTDIR)/bin:$(PATH)
 export PATH
 
+# Explicitly set the shell to Bash. Some recent Debian versions use Dash for
+# /bin/sh, and some other distributions and operating systems use the older
+# Bourne shell. Both of these are known to break the build.
+CONFIG_SHELL?=$(shell which bash)
+CONFIG_SHELL:=$(CONFIG_SHELL)
+ifeq ($(CONFIG_SHELL), )
+$(error Could not find bash in the PATH. Compilation is known to have issues when using a shell other than Bash. To ignore this error, set the CONFIG_SHELL variable to the path of a shell to use)
+endif
+export CONFIG_SHELL
+
 ### Enabled Languages
 ifeq ($(GCC_LANG_C), y)
 ENABLED_LANGUAGES+= c
